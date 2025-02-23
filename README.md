@@ -108,11 +108,12 @@ WHERE	[rank] = 1;
 ```
 **10. The top 5 states with the highest customer satisfaction scores.**
 ```sql
-SELECT  Week_Num,
-        ROUND(SUM(Interest_Earned),2) AS total_intrest
-FROM    credit_card
-GROUP BY Week_Num
-ORDER BY Week_Num ASC;
+SELECT	TOP 5 state_cd,
+	COUNT(Cust_Satisfaction_Score) AS Most_Cust_Satisfaction_Score
+FROM	customers
+WHERE	Cust_Satisfaction_Score = (SELECT MAX(Cust_Satisfaction_Score) From customers)
+GROUP BY state_cd
+ORDER BY Most_Cust_Satisfaction_Score DESC;
 ```
 
 - Designed Power BI dashboards with interactive filters to visualize monthly revenue, transaction types, and customer segmentation.
